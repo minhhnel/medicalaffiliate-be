@@ -1,21 +1,27 @@
-// hmacFile.ts
-import { readFile } from 'fs/promises';
-import { createHmac } from 'crypto';
+import crypto from "crypto";
+import { config } from "@config/setting";
 
-/**
- * Tính HMAC-SHA256 của một file
- * @param filePath Đường dẫn đến file
- * @param secretKey Khóa bí mật
- * @returns Promise<string> - HMAC dưới dạng hex
- */
-export async function hmacFile(filePath: string, secretKey: string): Promise<string> {
-    try {
-        const fileContent = await readFile(filePath);
-        const hmac = createHmac('sha256', secretKey);
-        hmac.update(fileContent);
-        return hmac.digest('hex');
-    } catch (err) {
-        throw new Error(`${(err as Error).message}`);
-    }
+export class Crypt {
+  private securityKey: string;
+
+  constructor(securityKey: string) {
+    this.securityKey = securityKey;
+  }
+
+  /**
+   * Sinh chữ ký HMAC-SHA256 từ danh sách giá trị
+   * @param values Mảng giá trị để ghép
+   * @param separator Ký tự phân tách, mặc định là "|"
+   * @returns Chữ ký HMAC-SHA256 dạng hex
+   */
+  generateXSign(values: Array<string | number>): string {
+    const dataStr = values.map(String).join("|");
+    const hmac = crypto.createHmac("sha256", this.securityKey);
+    hmac.update(dataStr);
+    return hmac.digest("hex");
+  }
+
+  getTimestamp(): string {
+    return Date.now().toString();
+  }
 }
-

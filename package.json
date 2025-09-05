@@ -8,8 +8,8 @@
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build-ts": "npm run clean && npm run build-ts && npm run lint",
-    "build": "tsc",
+    "build": "npm run clean && npm run build-ts && npm run lint",
+    "build-ts": "tsc",
     "clean": "rm -rf dist",
     "lint": "eslint src --ext .ts --fix",
     "serve": "node dist/server.js",
