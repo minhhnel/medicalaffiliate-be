@@ -35,7 +35,7 @@ export class ApiBase {
     const valuesForSign = [
       this.merchantId,
       timestamp,
-      ...(data ? Object.keys(data).sort().map(k => data[k]) : []),
+      ...(data ? Object.values(data) : []),
     ];
     const xSign = this.crypt.generateXSign(valuesForSign);
 
