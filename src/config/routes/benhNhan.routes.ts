@@ -13,13 +13,115 @@ const benhNhanCtrl = new BenhNhanController();
  *   description: API quản lý bệnh nhân
  */
 
-
 /**
  * @swagger
  * tags:
  *   name: BenhNhan
  *   description: API quản lý bệnh nhân
  */
+
+/**
+ * @swagger
+ * /benh-nhan:
+ *   get:
+ *     summary: Lấy thông tin bệnh nhân
+ *     tags: [BenhNhan]
+ *     parameters:
+ *       - in: query
+ *         name: SO_GTTT
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Số giấy tờ tùy thân
+ *       - in: query
+ *         name: LOAI_GTTT
+ *         schema:
+ *           type: string
+ *           default: CCCD
+ *         description: Loại giấy tờ tùy thân
+ *       - in: query
+ *         name: DIEN_THOAI
+ *         schema:
+ *           type: string
+ *         description: Số điện thoại (tùy chọn)
+ *       - in: query
+ *         name: MA_THE_BHYT
+ *         schema:
+ *           type: string
+ *         description: Mã thẻ BHYT (tùy chọn)
+ *     responses:
+ *       200:
+ *         description: Thành công
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     MA_BN:
+ *                       type: string
+ *                       example: '0000131703'
+ *                     HO_TEN:
+ *                       type: string
+ *                       example: 'NGUYEN VAN X'
+ *                     HO_BN:
+ *                       type: string
+ *                       example: 'NGUYEN VAN'
+ *                     TEN_BN:
+ *                       type: string
+ *                       example: 'X'
+ *                     MATINH_CUTRU:
+ *                       type: string
+ *                       example: '01'
+ *                     MAHUYEN_CU_TRU:
+ *                       type: string
+ *                       example: '001'
+ *                     MAXA_CU_TRU:
+ *                       type: string
+ *                       example: '00001'
+ *                     MA_DANTOC:
+ *                       type: string
+ *                       example: '01'
+ *                     MA_NGHE_NGHIEP:
+ *                       type: string
+ *                       example: '01'
+ *                     DIA_CHI:
+ *                       type: string
+ *                       example: '123 ABC, Ha Noi'
+ *                     NGAY_SINH:
+ *                       type: string
+ *                       example: '1990-01-01'
+ *                     GIOI_TINH:
+ *                       type: integer
+ *                       example: 2
+ *                     NHOM_MAU:
+ *                       type: string
+ *                       example: ''
+ *                     SO_GTTT:
+ *                       type: string
+ *                       example: '012345678901'
+ *                     MA_DINH_DANH:
+ *                       type: string
+ *                       example: '0000131703'
+ *       400:
+ *         description: Thiếu tham số
+ *       500:
+ *         description: Lỗi server
+ */
+
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const result = await benhNhanCtrl.getBenhNhan(req.query.SO_GTTT as string, req.query.LOAI_GTTT as string, req.query.DIEN_THOAI as string, req.query.MA_THE_BHYT as string);
+    if (!result) {
+      return sendSuccess(res, {  });
+    }
+    return sendSuccess(res, result);
+  } catch (err) {
+    return sendError(res, 500, { message: 'Lỗi server' });
+  }
+});
 
 /**
  * @swagger
