@@ -55,8 +55,7 @@ router.use(autoExtractHeadersMiddleware());
  */
 router.get('/tree', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const headers = req.customHeaders;
-    const result = await dichVuCtrl.getDichVuTree(headers as any);
+    const result = await dichVuCtrl.getDichVuTree();
     if (!result) {
       return sendError(res, 404, { message: 'Dịch vụ không tồn tại' });
     }

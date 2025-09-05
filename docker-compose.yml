@@ -1,18 +1,28 @@
-version: "3.9"
+version: '3.9'
 services:
-  api:
+  backend:
     build: .
+    container_name: his-backend
     ports:
-      - "8080:8080"
+      - '3000:3000'
     env_file:
       - .env
     depends_on:
-      - redis
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
+      - db
     volumes:
-      - redis-data:/data
+      - .:/app
+      - /app/node_modules
+
+  db:
+    image: postgres:15
+    container_name: his-db
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - '5433:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
 volumes:
-  redis-data:
+  db_data:
