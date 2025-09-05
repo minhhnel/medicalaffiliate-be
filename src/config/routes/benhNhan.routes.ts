@@ -6,9 +6,6 @@ import { BenhNhanController } from '@controllers/benhNhan/benhNhan.controller';
 const router = Router();
 const benhNhanCtrl = new BenhNhanController();
 
-// Middleware dùng để lấy tự động các header x-*
-router.use(autoExtractHeadersMiddleware());
-
 /**
  * @swagger
  * tags:
@@ -141,8 +138,7 @@ router.use(autoExtractHeadersMiddleware());
  
 router.post('/dang-ky-kham', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const headers = req.customHeaders;
-    const result = await benhNhanCtrl.dangKyKham(req.body, headers?.['ma-bn'] || '');
+    const result = await benhNhanCtrl.dangKyKham(req.body);
     if (!result) {
       return sendError(res, 404, { message: 'Đang ký khám không thành công' });
     }

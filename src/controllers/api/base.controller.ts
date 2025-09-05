@@ -43,6 +43,7 @@ export class ApiBase {
       "x-merchant-id": this.merchantId,
       "x-timestamp": timestamp,
       "x-sign": xSign,
+      ...data,
     };
   }
 
@@ -81,7 +82,6 @@ export class ApiBase {
   ): Promise<T> {
     const { skipAuth = false, ...config } = options;
     const headers = skipAuth ? config.headers : this.mergeHeaders(this.generateAuthHeaders(params), config.headers);
-
     try {
       const res = await this.axiosInstance.post<T>(path, body, { ...config, headers });
       return res.data;

@@ -23,18 +23,7 @@ router.use(autoExtractHeadersMiddleware());
  *     summary: Lấy danh sách cây dịch vụ
  *     tags: [DichVu]
  *     parameters:
- *       - in: header
- *         name: x-sign
- *         schema:
- *           type: string
- *         required: true
- *         description: Header x-sign
- *       - in: header
- *         name: x-timestamp
- *         schema:
- *           type: string
- *         required: true
- *         description: Header x-timestamp
+ *      
  *     responses:
  *       200:
  *         description: Thành công

@@ -9,7 +9,7 @@ errorLogger.addContext('requestType', 'HttpLogging');
 socketOutboundLogger.addContext('requestType', 'SocketLogging');
 
 export const sendSuccess = (res: Response, data: { [key: string]: any }, message: string = '') => {
-  res.status(200).json({ success: true, message, data });
+  res.status(200).json({ success: true, message: message || data.message, ...data });
 };
 
 export const sendError = (res: Response, code: number, error: any, errorSubject?: Error) => {

@@ -6,8 +6,8 @@ export class BenhNhanController extends ApiBase {
     super(config.domain, config.merchantId);
   }
 
-  async dangKyKham(body: any, Ma_BN: string) {
-    const result = await this.post('/dangky-kcb', body,{ 'Ma-BN': Ma_BN || "" } );
+  async dangKyKham(body: any) {
+    const result = await this.post('/dangky-kcb', body, { 'MA_BN': body.THONG_TIN_BENH_NHAN.MA_BN || "" } );
     return result;
   }
 }
