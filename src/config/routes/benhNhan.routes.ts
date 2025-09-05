@@ -28,12 +28,7 @@ const benhNhanCtrl = new BenhNhanController();
  *     summary: Đăng ký khám cho bệnh nhân
  *     tags: [BenhNhan]
  *     parameters:
- *       - in: header
- *         name: ma-bn
- *         schema:
- *           type: string
- *         required: false
- *         description: Mã bệnh nhân
+ *       
  *     requestBody:
  *       required: true
  *       content:
