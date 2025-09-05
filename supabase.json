@@ -1,0 +1,7 @@
+{
+  "username": "mkdis",
+  "password": "root",
+  "database": "mkdis",
+  "host": "https://sbxjeybhcdhsxaqxyfvr.supabase.co",
+  "port": 5432
+}
