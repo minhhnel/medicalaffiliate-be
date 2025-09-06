@@ -15,14 +15,7 @@ const benhNhanCtrl = new BenhNhanController();
 
 /**
  * @swagger
- * tags:
- *   name: Agent - BenhNhan
- *   description: API quản lý bệnh nhân
- */
-
-/**
- * @swagger
- * /benh-nhan:
+ * /agent/benh-nhan:
  *   get:
  *     summary: Lấy thông tin bệnh nhân
  *     tags: [Agent - BenhNhan]
@@ -137,7 +130,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 /**
  * @swagger
- * /benh-nhan:
+ * /agent/benh-nhan:
  *   post:
  *     summary: Đăng ký khám cho bệnh nhân
  *     tags: [Agent - BenhNhan]
