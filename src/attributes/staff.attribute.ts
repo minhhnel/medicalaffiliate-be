@@ -29,6 +29,11 @@ export const StaffAttributes = {
     unique: true,
     field: 'email',
   },
+  password: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+    field: 'password',
+  },
   department: {
     type: DataTypes.TEXT,
     allowNull: true,

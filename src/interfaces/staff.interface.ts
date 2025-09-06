@@ -12,4 +12,5 @@ export interface StaffInterface {
   phoneNumber?: string | null;
   dateOfBirth?: string | null;
   gender?: string | null;
+  password?: string;
 }

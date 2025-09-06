@@ -16,6 +16,7 @@ class Staff extends Model<StaffInterface> implements StaffInterface {
     public phoneNumber?: string | null;
     public dateOfBirth?: string | null;
     public gender?: string | null;
+    public password?: string;
 
     // Khai báo validate
     // static validations: ModelValidateOptions = {
