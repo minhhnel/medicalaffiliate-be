@@ -18,7 +18,7 @@ ENV NODE_ENV=production
 ENV PORT=3000
 
 # Build nếu có (nếu project dùng TypeScript thì build trước)
-# RUN npm run build
+RUN npm run build-ts
 
 # Mở cổng
 EXPOSE 3000
