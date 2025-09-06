@@ -84,6 +84,9 @@ const benhNhanCtrl = new BenhNhanController();
  *                     MA_DANTOC:
  *                       type: string
  *                       example: '01'
+ *                     MA_QUOCTICH:
+ *                       type: string
+ *                       example: '124'
  *                     MA_NGHE_NGHIEP:
  *                       type: string
  *                       example: '01'
@@ -102,9 +105,18 @@ const benhNhanCtrl = new BenhNhanController();
  *                     SO_GTTT:
  *                       type: string
  *                       example: '012345678901'
+ *                     EMAIL:
+ *                       type: string
+ *                       example: 'nguyenvana@example.com'
+ *                     DIEN_THOAI:
+ *                       type: string
+ *                       example: '0912345678'
  *                     MA_DINH_DANH:
  *                       type: string
- *                       example: '0000131703'
+ *                       example: '046096000123'
+ *                     MA_THE_BHYT:
+ *                       type: string
+ *                       example: '7933081123'
  *       400:
  *         description: Thiếu tham số
  *       500:
@@ -137,16 +149,30 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
  *         application/json:
  *           schema:
  *             type: object
- *             example:
- *               HO_TEN: "Nguyen Van A"
- *               NGAY_SINH: "1990-01-01"
- *               GIOI_TINH: 2
- *               DIA_CHI: "123 ABC, Ha Noi"
- *               SO_GTTT: "012345678901"
- *               LOAI_DICH_VU: "Khám"
- *               PHONG_KHAM: "013"
- *               SO_LUONG: 1
- *               DON_GIA: 60000
+*             example:
+ *               ID_LOAI_KHAM: "03"
+ *               BN_UU_TIEN: 0
+ *               THONG_TIN_BENH_NHAN:
+ *                 HO_TEN: "NGUYEN VAN X"
+ *                 HO_BN: "NGUYEN VAN"
+ *                 TEN_BN: "X"
+ *                 MATINH_CUTRU: "01"
+ *                 MAHUYEN_CU_TRU: "001"
+ *                 MAXA_CU_TRU: "00001"
+ *                 MA_DANTOC: "01"
+ *                 MA_QUOCTICH: "VN"
+ *                 MA_NGHE_NGHIEP: "01"
+ *                 DIA_CHI: "123 ABC, Ha Noi"
+ *                 NGAY_SINH: "1990-01-01"
+ *                 GIOI_TINH: 2
+ *                 DIEN_THOAI: "84973537229"
+ *                 SO_GTTT: "012345678901"
+ *                 MA_THE_BHYT: "7933081123"
+ *               THONG_TIN_DICH_VU:
+ *                 ID_KHOA: "32"
+ *                 ID_PHONG_KHAM: "P160"
+ *                 ID_LOAI_KHAM: "03"
+ *                 MA_DICH_VU: "013"
  *     responses:
  *       200:
  *         description: Đăng ký khám thành công
