@@ -1,16 +1,16 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
-import https from "https";
-import { Crypt } from "@jobs/crypt.processor";
-import { config } from "@config/setting";
+import https from 'https';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { Crypt } from '@jobs/crypt.processor';
+import { config } from '@config/setting';
 
 interface ApiRequestOptions extends AxiosRequestConfig {
   skipAuth?: boolean;
 }
 
 interface ApiHeaders {
-  "x-merchant-id": string;
-  "x-timestamp": string;
-  "x-sign": string;
+  'x-merchant-id': string;
+  'x-timestamp': string;
+  'x-sign': string;
   [key: string]: any;
 }
 
@@ -19,18 +19,18 @@ export class ApiBase {
   protected merchantId: string;
   protected crypt: Crypt;
 
-  constructor(baseURL: string, merchantId: string) {
+  constructor (baseURL: string, merchantId: string) {
     this.merchantId = merchantId;
     this.crypt = new Crypt(config.keySecret);
 
     this.axiosInstance = axios.create({
       baseURL,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
       httpsAgent: new https.Agent({ rejectUnauthorized: false }),
     });
   }
 
-  private generateAuthHeaders(data?: Record<string, any>): ApiHeaders {
+  private generateAuthHeaders (data?: Record<string, any>): ApiHeaders {
     const timestamp = this.crypt.getTimestamp();
     const valuesForSign = [
       this.merchantId,
@@ -40,26 +40,26 @@ export class ApiBase {
     const xSign = this.crypt.generateXSign(valuesForSign);
 
     return {
-      "x-merchant-id": this.merchantId,
-      "x-timestamp": timestamp,
-      "x-sign": xSign,
+      'x-merchant-id': this.merchantId,
+      'x-timestamp': timestamp,
+      'x-sign': xSign,
       ...data,
     };
   }
 
-  private mergeHeaders(defaults: Record<string, any>, custom?: Record<string, any>) {
+  private mergeHeaders (defaults: Record<string, any>, custom?: Record<string, any>) {
     return { ...defaults, ...(custom || {}) };
   }
 
-  private handleError(error: any, method: string, path: string) {
+  private handleError (error: any, method: string, path: string) {
     console.error(`${method} ${path} error:`, error.response?.data || error.message);
     return error;
   }
 
-  protected async get<T>(
+  protected async get<T> (
     path: string,
     params?: Record<string, any>,
-    options: ApiRequestOptions = {}
+    options: ApiRequestOptions = {},
   ): Promise<T> {
     const headers = this.generateAuthHeaders(params);
     try {
@@ -70,15 +70,15 @@ export class ApiBase {
       });
       return res.data;
     } catch (err: any) {
-      throw this.handleError(err, "GET", path);
+      throw this.handleError(err, 'GET', path);
     }
   }
 
-  protected async post<T>(
+  protected async post<T> (
     path: string,
     body?: Record<string, any>,
     params?: Record<string, any>,
-    options: ApiRequestOptions = {}
+    options: ApiRequestOptions = {},
   ): Promise<T> {
     const { skipAuth = false, ...config } = options;
     const headers = skipAuth ? config.headers : this.mergeHeaders(this.generateAuthHeaders(params), config.headers);
@@ -86,7 +86,7 @@ export class ApiBase {
       const res = await this.axiosInstance.post<T>(path, body, { ...config, headers });
       return res.data;
     } catch (err: any) {
-      throw this.handleError(err, "POST", path);
+      throw this.handleError(err, 'POST', path);
     }
   }
 }

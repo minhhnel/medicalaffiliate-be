@@ -1,13 +1,13 @@
-import { ApiBase } from './base.controller';
 import { config } from '@config/setting';
+import { ApiBase } from './base.controller';
 
 export class TinhHuyenXa2Controller extends ApiBase {
-  constructor() {
+  constructor () {
     super(config.domain2!, config.merchantId!);
   }
 
-  async getTinhHuyenXa2List() {
-    const result = await this.get('/tinh-huyen-xa2'); 
+  async getTinhHuyenXa2List () {
+    const result = await this.get('/tinh-huyen-xa2');
     return result;
   }
 }

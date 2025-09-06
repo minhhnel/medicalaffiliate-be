@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import QuocGiaController from '@controllers/api/quocGia.controller';
+import TinhHuyenXaController from '@controllers/api/tinhHuyenXa.controller';
 import { autoExtractHeadersMiddleware } from '@middlewares/extractMiddleware';
 import { sendError, sendSuccess } from '@/libs/response';
 
 const router = Router();
-const quocGiaCtrl = new QuocGiaController();
+const tinhHuyenXaCtrl = new TinhHuyenXaController();
 
 // Middleware tự động lấy các header x-*
 router.use(autoExtractHeadersMiddleware());
@@ -12,16 +12,16 @@ router.use(autoExtractHeadersMiddleware());
 /**
  * @swagger
  * tags:
- *   name: QuocGia
- *   description: API lấy danh sách Quốc gia
+ *   name: HisApi - TinhHuyenXa
+ *   description: API lấy danh sách Tỉnh, Huyện, Xã
  */
 
 /**
  * @swagger
- * /quoc-gia/list:
+ * /his-api/tinh-huyen-xa:
  *   get:
- *     summary: Lấy danh sách Quốc gia
- *     tags: [QuocGia]
+ *     summary: Lấy danh sách Tỉnh, Huyện, Xã
+ *     tags: [HisApi - TinhHuyenXa]
  *     responses:
  *       200:
  *         description: Thành công
@@ -41,20 +41,32 @@ router.use(autoExtractHeadersMiddleware());
  *                   items:
  *                     type: object
  *                     properties:
- *                       MA_QUOCGIA:
+ *                       MA_TINH:
  *                         type: string
- *                         example: "VN"
- *                       TEN_QUOCGIA:
+ *                         example: "01"
+ *                       TEN_TINH:
  *                         type: string
- *                         example: "Việt Nam"
+ *                         example: "Hà Nội"
+ *                       MA_HUYEN:
+ *                         type: string
+ *                         example: "001"
+ *                       TEN_HUYEN:
+ *                         type: string
+ *                         example: "Ba Đình"
+ *                       MA_XA:
+ *                         type: string
+ *                         example: "0001"
+ *                       TEN_XA:
+ *                         type: string
+ *                         example: "Phúc Xá"
  *       500:
  *         description: Lỗi server
  */
 router.get('/list', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await quocGiaCtrl.getQuocGiaList();
+    const result = await tinhHuyenXaCtrl.getTinhHuyenXaList();
     if (!result) {
-      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu Quốc gia' });
+      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu Tỉnh-Huyện-Xã' });
     }
     return sendSuccess(res, result);
   } catch (err) {

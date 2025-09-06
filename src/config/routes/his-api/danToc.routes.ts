@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import TinhHuyenXaController from '@controllers/api/tinhHuyenXa.controller';
+import DanTocController from '@controllers/api/danToc.controller';
 import { autoExtractHeadersMiddleware } from '@middlewares/extractMiddleware';
 import { sendError, sendSuccess } from '@/libs/response';
 
 const router = Router();
-const tinhHuyenXaCtrl = new TinhHuyenXaController();
+const danTocCtrl = new DanTocController();
 
 // Middleware tự động lấy các header x-*
 router.use(autoExtractHeadersMiddleware());
@@ -12,16 +12,16 @@ router.use(autoExtractHeadersMiddleware());
 /**
  * @swagger
  * tags:
- *   name: TinhHuyenXa
- *   description: API lấy danh sách Tỉnh, Huyện, Xã
+ *   name: HisApi - DanToc
+ *   description: API lấy danh sách dân tộc
  */
 
 /**
  * @swagger
- * /tinh-huyen-xa/list:
+ * /his-api/dan-toc:
  *   get:
- *     summary: Lấy danh sách Tỉnh, Huyện, Xã
- *     tags: [TinhHuyenXa]
+ *     summary: Lấy danh sách dân tộc
+ *     tags: [HisApi - DanToc]
  *     responses:
  *       200:
  *         description: Thành công
@@ -41,32 +41,20 @@ router.use(autoExtractHeadersMiddleware());
  *                   items:
  *                     type: object
  *                     properties:
- *                       MA_TINH:
+ *                       MA_DANTOC:
  *                         type: string
  *                         example: "01"
- *                       TEN_TINH:
+ *                       TEN_DANTOC:
  *                         type: string
- *                         example: "Hà Nội"
- *                       MA_HUYEN:
- *                         type: string
- *                         example: "001"
- *                       TEN_HUYEN:
- *                         type: string
- *                         example: "Ba Đình"
- *                       MA_XA:
- *                         type: string
- *                         example: "0001"
- *                       TEN_XA:
- *                         type: string
- *                         example: "Phúc Xá"
+ *                         example: "Kinh"
  *       500:
  *         description: Lỗi server
  */
-router.get('/list', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await tinhHuyenXaCtrl.getTinhHuyenXaList();
+    const result = await danTocCtrl.getDanTocList();
     if (!result) {
-      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu Tỉnh-Huyện-Xã' });
+      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu dân tộc' });
     }
     return sendSuccess(res, result);
   } catch (err) {

@@ -12,16 +12,16 @@ router.use(autoExtractHeadersMiddleware());
 /**
  * @swagger
  * tags:
- *   name: GiaDichVu
+ *   name: HisApi - GiaDichVu
  *   description: API lấy giá dịch vụ
  */
 
 /**
  * @swagger
- * /gia-dich-vu/list:
+ * /his-api/gia-dich-vu:
  *   get:
  *     summary: Lấy danh sách giá dịch vụ
- *     tags: [GiaDichVu]
+ *     tags: [HisApi - GiaDichVu]
  *     responses:
  *       200:
  *         description: Thành công
@@ -56,7 +56,7 @@ router.use(autoExtractHeadersMiddleware());
  *       500:
  *         description: Lỗi server
  */
-router.get('/list', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await giaDichVuCtrl.getGiaDichVuList();
     if (!result) {

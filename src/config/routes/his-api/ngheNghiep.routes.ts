@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import DanTocController from '@controllers/api/danToc.controller';
+import NgheNghiepController from '@controllers/api/ngheNghiep.controller';
 import { autoExtractHeadersMiddleware } from '@middlewares/extractMiddleware';
 import { sendError, sendSuccess } from '@/libs/response';
 
 const router = Router();
-const danTocCtrl = new DanTocController();
+const ngheNghiepCtrl = new NgheNghiepController();
 
 // Middleware tự động lấy các header x-*
 router.use(autoExtractHeadersMiddleware());
@@ -12,16 +12,16 @@ router.use(autoExtractHeadersMiddleware());
 /**
  * @swagger
  * tags:
- *   name: DanToc
- *   description: API lấy danh sách dân tộc
+ *   name: HisApi - NgheNghiep
+ *   description: API lấy danh sách nghề nghiệp
  */
 
 /**
  * @swagger
- * /dan-toc/list:
+ * /his-api/nghe-nghiep:
  *   get:
- *     summary: Lấy danh sách dân tộc
- *     tags: [DanToc]
+ *     summary: Lấy danh sách nghề nghiệp
+ *     tags: [HisApi - NgheNghiep]
  *     responses:
  *       200:
  *         description: Thành công
@@ -41,20 +41,20 @@ router.use(autoExtractHeadersMiddleware());
  *                   items:
  *                     type: object
  *                     properties:
- *                       MA_DANTOC:
+ *                       MA_NGHENGHIEP:
  *                         type: string
  *                         example: "01"
- *                       TEN_DANTOC:
+ *                       TEN_NGHENGHIEP:
  *                         type: string
- *                         example: "Kinh"
+ *                         example: "Bác sĩ"
  *       500:
  *         description: Lỗi server
  */
 router.get('/list', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await danTocCtrl.getDanTocList();
+    const result = await ngheNghiepCtrl.getNgheNghiepList();
     if (!result) {
-      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu dân tộc' });
+      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu nghề nghiệp' });
     }
     return sendSuccess(res, result);
   } catch (err) {

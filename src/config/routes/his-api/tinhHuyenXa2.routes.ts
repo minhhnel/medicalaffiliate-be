@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import NgheNghiepController from '@controllers/api/ngheNghiep.controller';
+import TinhHuyenXa2Controller from '@controllers/api/tinhHuyenXa2.controller';
 import { autoExtractHeadersMiddleware } from '@middlewares/extractMiddleware';
 import { sendError, sendSuccess } from '@/libs/response';
 
 const router = Router();
-const ngheNghiepCtrl = new NgheNghiepController();
+const tinhHuyenXa2Ctrl = new TinhHuyenXa2Controller();
 
 // Middleware tự động lấy các header x-*
 router.use(autoExtractHeadersMiddleware());
@@ -12,16 +12,16 @@ router.use(autoExtractHeadersMiddleware());
 /**
  * @swagger
  * tags:
- *   name: NgheNghiep
- *   description: API lấy danh sách nghề nghiệp
+ *   name: HisApi - TinhHuyenXa2
+ *   description: API lấy danh sách Tỉnh-Huyện-Xã 2 cấp
  */
 
 /**
  * @swagger
- * /nghe-nghiep/list:
+ * /his-api/tinh-huyen-xa2:
  *   get:
- *     summary: Lấy danh sách nghề nghiệp
- *     tags: [NgheNghiep]
+ *     summary: Lấy danh sách Tỉnh-Huyện-Xã 2 cấp
+ *     tags: [HisApi - TinhHuyenXa2]
  *     responses:
  *       200:
  *         description: Thành công
@@ -41,20 +41,26 @@ router.use(autoExtractHeadersMiddleware());
  *                   items:
  *                     type: object
  *                     properties:
- *                       MA_NGHENGHIEP:
+ *                       MA_TINH:
  *                         type: string
  *                         example: "01"
- *                       TEN_NGHENGHIEP:
+ *                       TEN_TINH:
  *                         type: string
- *                         example: "Bác sĩ"
+ *                         example: "Hà Nội"
+ *                       MA_XA:
+ *                         type: string
+ *                         example: "001"
+ *                       TEN_XA:
+ *                         type: string
+ *                         example: "Ba Đình"
  *       500:
  *         description: Lỗi server
  */
-router.get('/list', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await ngheNghiepCtrl.getNgheNghiepList();
+    const result = await tinhHuyenXa2Ctrl.getTinhHuyenXa2List();
     if (!result) {
-      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu nghề nghiệp' });
+      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu Tỉnh-Huyện-Xã' });
     }
     return sendSuccess(res, result);
   } catch (err) {

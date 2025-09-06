@@ -1,12 +1,12 @@
-import { ApiBase } from './base.controller';
 import { config } from '@config/setting';
+import { ApiBase } from './base.controller';
 
 export class DichVuController extends ApiBase {
-  constructor() {
+  constructor () {
     super(config.domain!, config.merchantId!);
   }
 
-  async getDichVuTree() {
+  async getDichVuTree () {
     const result = await this.get('/dich-vu-tree');
     return result;
   }

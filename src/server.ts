@@ -5,7 +5,7 @@ import compression from 'compression';
 import cors from 'cors';
 import sequelize from '@plugins/sequelize';
 import { setupSwagger } from '@config/swagger';
-import routes from '@config/routes/index.routes';
+import routes from '@config/routes';
 
 process.env.TZ = 'Asia/Bangkok';
 const port = process.env.PORT || 3000;

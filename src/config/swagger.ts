@@ -1,10 +1,10 @@
+import path from 'path';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import { Express } from 'express';
-import path from 'path';
 import glob from 'glob';
 
-export function setupSwagger(app: Express, port: number) {
+export function setupSwagger (app: Express, port: number) {
   const ext = 'ts';
   const patterns = [
     path.resolve(process.cwd(), `src/config/routes/**/*.routes.${ext}`),

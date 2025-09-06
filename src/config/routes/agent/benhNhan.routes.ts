@@ -1,7 +1,7 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { autoExtractHeadersMiddleware } from '@middlewares/extractMiddleware';
+import { BenhNhanController } from '@controllers/agent/benhNhan/benhNhan.controller';
 import { sendError, sendSuccess } from '@/libs/response';
-import { BenhNhanController } from '@controllers/benhNhan/benhNhan.controller';
 
 const router = Router();
 const benhNhanCtrl = new BenhNhanController();
@@ -9,14 +9,14 @@ const benhNhanCtrl = new BenhNhanController();
 /**
  * @swagger
  * tags:
- *   name: BenhNhan
+ *   name: Agent - BenhNhan
  *   description: API quản lý bệnh nhân
  */
 
 /**
  * @swagger
  * tags:
- *   name: BenhNhan
+ *   name: Agent - BenhNhan
  *   description: API quản lý bệnh nhân
  */
 
@@ -25,7 +25,7 @@ const benhNhanCtrl = new BenhNhanController();
  * /benh-nhan:
  *   get:
  *     summary: Lấy thông tin bệnh nhân
- *     tags: [BenhNhan]
+ *     tags: [Agent - BenhNhan]
  *     parameters:
  *       - in: query
  *         name: SO_GTTT
@@ -127,7 +127,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await benhNhanCtrl.getBenhNhan(req.query.SO_GTTT as string, req.query.LOAI_GTTT as string, req.query.DIEN_THOAI as string, req.query.MA_THE_BHYT as string);
     if (!result) {
-      return sendSuccess(res, {  });
+      return sendSuccess(res, { });
     }
     return sendSuccess(res, result);
   } catch (err) {
@@ -137,12 +137,12 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
 
 /**
  * @swagger
- * /benh-nhan/dang-ky-kham:
+ * /benh-nhan:
  *   post:
  *     summary: Đăng ký khám cho bệnh nhân
- *     tags: [BenhNhan]
+ *     tags: [Agent - BenhNhan]
  *     parameters:
- *       
+ *
  *     requestBody:
  *       required: true
  *       content:
@@ -258,8 +258,8 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
  *       500:
  *         description: Lỗi server
  */
- 
-router.post('/dang-ky-kham', async (req: Request, res: Response, next: NextFunction) => {
+
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await benhNhanCtrl.dangKyKham(req.body);
     if (!result) {
@@ -272,4 +272,3 @@ router.post('/dang-ky-kham', async (req: Request, res: Response, next: NextFunct
 });
 
 export default router;
-

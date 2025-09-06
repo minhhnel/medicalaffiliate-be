@@ -1,13 +1,13 @@
-import { ApiBase } from './base.controller';
 import { config } from '@config/setting';
+import { ApiBase } from './base.controller';
 
 export class GiaDichVuController extends ApiBase {
-  constructor() {
+  constructor () {
     super(config.domain!, config.merchantId!);
   }
 
-  async getGiaDichVuList() {
-    const result = await this.get('/gia-dichvu'); 
+  async getGiaDichVuList () {
+    const result = await this.get('/gia-dichvu');
     return result;
   }
 }

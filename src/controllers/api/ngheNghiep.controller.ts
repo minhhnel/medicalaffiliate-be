@@ -1,12 +1,12 @@
-import { ApiBase } from './base.controller';
 import { config } from '@config/setting';
+import { ApiBase } from './base.controller';
 
 export class NgheNghiepController extends ApiBase {
-  constructor() {
+  constructor () {
     super(config.domain!, config.merchantId!); // baseURL đã chứa /api/Kiosk
   }
 
-  async getNgheNghiepList() {
+  async getNgheNghiepList () {
     const result = await this.get('/nghe-nghiep'); // chỉ cần path /nghe-nghiep
     return result;
   }

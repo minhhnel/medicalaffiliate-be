@@ -13,7 +13,7 @@ declare global {
  * Middleware tự động lấy các header tùy biến dựa trên prefix
  * @param prefixPrefix tiền tố header cần lấy, ví dụ 'x-' để lấy tất cả x-*
  */
-export function autoExtractHeadersMiddleware(prefix: string = '') {
+export function autoExtractHeadersMiddleware (prefix: string = '') {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const extractedHeaders: Record<string, string> = {};

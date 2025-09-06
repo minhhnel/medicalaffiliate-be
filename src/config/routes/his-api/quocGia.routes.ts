@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import TinhHuyenXa2Controller from '@controllers/api/tinhHuyenXa2.controller';
+import QuocGiaController from '@controllers/api/quocGia.controller';
 import { autoExtractHeadersMiddleware } from '@middlewares/extractMiddleware';
 import { sendError, sendSuccess } from '@/libs/response';
 
 const router = Router();
-const tinhHuyenXa2Ctrl = new TinhHuyenXa2Controller();
+const quocGiaCtrl = new QuocGiaController();
 
 // Middleware tự động lấy các header x-*
 router.use(autoExtractHeadersMiddleware());
@@ -12,16 +12,16 @@ router.use(autoExtractHeadersMiddleware());
 /**
  * @swagger
  * tags:
- *   name: TinhHuyenXa2
- *   description: API lấy danh sách Tỉnh-Huyện-Xã 2 cấp
+ *   name: HisApi - QuocGia
+ *   description: API lấy danh sách Quốc gia
  */
 
 /**
  * @swagger
- * /tinh-huyen-xa2/list:
+ * /his-api/quoc-gia:
  *   get:
- *     summary: Lấy danh sách Tỉnh-Huyện-Xã 2 cấp
- *     tags: [TinhHuyenXa2]
+ *     summary: Lấy danh sách Quốc gia
+ *     tags: [HisApi - QuocGia]
  *     responses:
  *       200:
  *         description: Thành công
@@ -41,26 +41,20 @@ router.use(autoExtractHeadersMiddleware());
  *                   items:
  *                     type: object
  *                     properties:
- *                       MA_TINH:
+ *                       MA_QUOCGIA:
  *                         type: string
- *                         example: "01"
- *                       TEN_TINH:
+ *                         example: "VN"
+ *                       TEN_QUOCGIA:
  *                         type: string
- *                         example: "Hà Nội"
- *                       MA_XA:
- *                         type: string
- *                         example: "001"
- *                       TEN_XA:
- *                         type: string
- *                         example: "Ba Đình"
+ *                         example: "Việt Nam"
  *       500:
  *         description: Lỗi server
  */
-router.get('/list', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = await tinhHuyenXa2Ctrl.getTinhHuyenXa2List();
+    const result = await quocGiaCtrl.getQuocGiaList();
     if (!result) {
-      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu Tỉnh-Huyện-Xã' });
+      return sendError(res, 404, { message: 'Không tìm thấy dữ liệu Quốc gia' });
     }
     return sendSuccess(res, result);
   } catch (err) {

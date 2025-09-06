@@ -12,18 +12,18 @@ router.use(autoExtractHeadersMiddleware());
 /**
  * @swagger
  * tags:
- *   name: DichVu
+ *   name: HisApi - DichVu
  *   description: API quản lý dịch vụ
  */
 
 /**
  * @swagger
- * /dich-vu/tree:
+ * /his-api/dich-vu:
  *   get:
  *     summary: Lấy danh sách cây dịch vụ
- *     tags: [DichVu]
+ *     tags: [HisApi - DichVu]
  *     parameters:
- *      
+ *
  *     responses:
  *       200:
  *         description: Thành công
@@ -42,7 +42,7 @@ router.use(autoExtractHeadersMiddleware());
  *       500:
  *         description: Lỗi server
  */
-router.get('/tree', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const result = await dichVuCtrl.getDichVuTree();
     if (!result) {
